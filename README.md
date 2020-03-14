@@ -2,7 +2,7 @@
 
 https://coursetro.com/posts/code/174/Angular-8-Tutorial-&-Crash-Course
 
-## Creating components
+## 1. Creating components
 
 Components are created using the angular CLI. To create a HomeComponent class: 
 ```
@@ -11,7 +11,7 @@ ng g c home
 
 This creates a folder called home within app with 4 files inside it: html, scss, spec.ts (for testing), and ts.
 
-## Routing
+## 2. Routing
 
 Routing takes place in the ```app-routing.module.ts``` file location in ```/src/app```.
 
@@ -29,7 +29,7 @@ const routes: Routes = [
 ];
 ```
 
-## Event binding and one-way data binding
+## 3. Event binding and one-way data binding
 
 Our goal is to set up a simple button, which when clicked increments a counter which is displayed on the page.
 
@@ -49,7 +49,7 @@ Then we set up the event binding and interpolation in ```home.component.html```.
 <p>You've clicked <span (click)="countClick()">this</span> {{ clickCounter }} times.</p>
 ```
 
-## Two-way data binding
+## 4. Two-way data binding
 
 This can be achieved using ```[(ngModel)]```. Firstly, we must set up ```FormsModule``` in ```app.module.ts```.
 
@@ -83,7 +83,7 @@ name: string = '';
 
 Now when we update the input field in the form, it updates ```name``` in the typescript, which updates the display on the page. We can also change the value of ```name``` in the ts (without using the input field) and it will update the page.
 
-## Templating
+## 5. Templating
 
 This is acheved by the use of the ```ngIf``` and ```ngClass``` property bindings.
 
@@ -110,5 +110,71 @@ setClasses() {
     notActive: this.clickCounter <= 4,
   };
   return myClasses;
+}
+```
+
+## 6. HTTP service
+
+Create using the angular CLI generator
+```
+ng g s http
+```
+
+Make the httpClient available throughout the app.
+
+app.module.ts
+```javascript
+import { HttpClientModule } from '@angular/common/http';
+
+imports: [
+  HttpClientModule
+]
+```
+
+### Define the method in HttpService
+
+Import into ```http.service.ts```.
+```javascript
+import { HttpClient } from '@angular/common/http';
+```
+
+Inject the HttpClient via the constructor
+```javascript
+constructor(private http: HttpClient) { }
+```
+
+Define the method
+```javascript
+getBeer() {
+  return this.http.get('https://api.openbrewerydb.org/breweries');
+}
+```
+
+### Use the method to get data
+
+All in ```list.component.ts```.
+
+Import the HttpService class.
+```javascript
+import { HttpService } from '../http.service';
+```
+
+Declare a variable.
+```javascript
+brews: Object;
+```
+
+Inject the http service via the constructor
+```javascript
+constructor(private _http: HttpService) { }
+```
+
+Call the method in ngOnInit and subscribe to the observable to use the data.
+```javascript
+ngOnInit(): void {
+  this._http.getBeer().subscribe(data => {
+    this.brews = data;
+    console.log(this.brews);
+  });
 }
 ```
