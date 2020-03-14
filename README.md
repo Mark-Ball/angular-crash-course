@@ -48,3 +48,37 @@ Then we set up the event binding and interpolation in ```home.component.html```.
 ```
 <p>You've clicked <span (click)="countClick()">this</span> {{ clickCounter }} times.</p>
 ```
+
+## Two-way data binding
+
+This can be achieved using ```[(ngModel)]```. Firstly, we must set up ```FormsModule``` in ```app.module.ts```.
+
+```javascript
+// other imports
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  // other objects
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule // add this
+  ]
+  // other objects
+```
+
+We use ngModel in a tag in the html file and provide a place where the variable is output.
+
+```html
+<input type='text' [(ngModel)]="name">
+  <br>
+<strong>You said: </strong> {{ name }}
+```
+
+In the ts file we simply initialise the variable.
+
+```javascript
+name: string = '';
+```
+
+Now when we update the input field in the form, it updates ```name``` in the typescript, which updates the display on the page. We can also change the value of ```name``` in the ts (without using the input field) and it will update the page.
