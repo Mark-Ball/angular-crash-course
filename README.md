@@ -28,3 +28,23 @@ const routes: Routes = [
   { path: '', component: HomeComponent }
 ];
 ```
+
+## Event binding and one-way data binding
+
+Our goal is to set up a simple button, which when clicked increments a counter which is displayed on the page.
+
+Firstly we set up the variable and method in ```home.component.ts```.
+
+```
+clickCounter: number = 0;
+
+countClick() {
+  this.clickCounter += 1;
+}
+```
+
+Then we set up the event binding and interpolation in ```home.component.html```.
+
+```
+<p>You've clicked <span (click)="countClick()">this</span> {{ clickCounter }} times.</p>
+```
