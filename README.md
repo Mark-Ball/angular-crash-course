@@ -82,3 +82,33 @@ name: string = '';
 ```
 
 Now when we update the input field in the form, it updates ```name``` in the typescript, which updates the display on the page. We can also change the value of ```name``` in the ts (without using the input field) and it will update the page.
+
+## Templating
+
+This is acheved by the use of the ```ngIf``` and ```ngClass``` property bindings.
+
+```ngIf``` is used for conditional rendering.
+
+```html
+<ng-template [ngIf]="clickCounter > 4" [ngIfElse]="none">
+  <p>The click counter <strong>IS GREATER</strong> than 4.</p>
+</ng-template>
+```
+
+```ngClass``` is used to put classes onto html elements. This can be done in combination with a method in the ts file.
+
+home.component.html
+```html
+<div [ngClass]="setClasses()">
+```
+
+home.component.ts
+```javascript
+setClasses() {
+  let myClasses = {
+    active: this.clickCounter > 4,
+    notActive: this.clickCounter <= 4,
+  };
+  return myClasses;
+}
+```
