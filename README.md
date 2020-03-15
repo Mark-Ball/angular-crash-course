@@ -178,3 +178,10 @@ ngOnInit(): void {
   });
 }
 ```
+
+## 7. Deployment
+
+Build the project from the CLI.
+```
+ng build --prod
+```
